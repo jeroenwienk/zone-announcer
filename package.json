@@ -1,0 +1,27 @@
+{
+  "name": "announcer",
+  "version": "1.0.0",
+  "description": "PUBG Zone Announcer",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeroenwienk/zone-announcer.git"
+  },
+  "keywords": [
+    "PUBG",
+    "zone",
+    "announce"
+  ],
+  "author": "J Wienk",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jeroenwienk/zone-announcer/issues"
+  },
+  "homepage": "https://github.com/jeroenwienk/zone-announcer#readme",
+  "dependencies": {
+    "electron": "^1.7.5"
+  }
+}
