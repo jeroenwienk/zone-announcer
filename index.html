@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Zone Announcer</title>
+</head>
+<body>
+<h3 id="time"></h3>
+<label for="select-field-timer-start">Start timer from:</label>
+<select id="select-field-timer-start" onchange="onSelectFieldChange()">
+    <option value="first-circle">First Circle</option>
+    <option value="plane">Plane</option>
+</select>
+<script>
+  const { ipcRenderer } = require('electron');
+  const path = require('path');
+  const element = document.getElementById('time');
+  element.innerText = fancyTimeFormat(0);
+  const selectElement = document.getElementById('select-field-timer-start');
+
+  const timerStarted = path.join(__dirname, 'wav/timer-started.wav');
+  const timerStopped = path.join(__dirname, 'wav/timer-stopped.wav');
+  const zoneShrinking = path.join(__dirname, 'wav/zone-shrinking.wav');
+  const tenSecondsLeft = path.join(__dirname, 'wav/10-seconds-left.wav');
+  const thirtySecondsLeft = path.join(__dirname, 'wav/30-seconds-left.wav');
+  const fiftyPercent = path.join(__dirname, 'wav/50-percent.wav');
+
+  const firstZoneStarted = path.join(__dirname, 'wav/first-zone-started.wav');
+  const secondZoneStarted = path.join(__dirname, 'wav/second-zone-started.wav');
+  const thirdZoneStarted = path.join(__dirname, 'wav/third-zone-started.wav');
+  const fourthZoneStarted = path.join(__dirname, 'wav/fourth-zone-started.wav');
+  const fifthZoneStarted = path.join(__dirname, 'wav/fifth-zone-started.wav');
+  const sixthZoneStarted = path.join(__dirname, 'wav/sixth-zone-started.wav');
+  const seventhZoneStarted = path.join(__dirname, 'wav/seventh-zone-started.wav');
+  const eighthZoneStarted = path.join(__dirname, 'wav/eighth-zone-started.wav');
+  const ninthZoneStarted = path.join(__dirname, 'wav/ninth-zone-started.wav');
+
+  const timerStartedAudio = new Audio(timerStarted);
+  const timerStoppedAudio = new Audio(timerStopped);
+  const zoneShrinkingAudio = new Audio(zoneShrinking);
+  const tenSecondsLeftAudio = new Audio(tenSecondsLeft);
+  const thirtySecondsLeftAudio = new Audio(thirtySecondsLeft);
+  const fiftyPercentAudio = new Audio(fiftyPercent);
+
+  const firstZoneStartedAudio = new Audio(firstZoneStarted);
+  const secondZoneStartedAudio = new Audio(secondZoneStarted);
+  const thirdZoneStartedAudio = new Audio(thirdZoneStarted);
+  const fourthZoneStartedAudio = new Audio(fourthZoneStarted);
+  const fifthZoneStartedAudio = new Audio(fifthZoneStarted);
+  const sixthZoneStartedAudio = new Audio(sixthZoneStarted);
+  const seventhZoneStartedAudio = new Audio(seventhZoneStarted);
+  const eighthZoneStartedAudio = new Audio(eighthZoneStarted);
+  const ninthZoneStartedAudio = new Audio(ninthZoneStarted);
+
+  if (window.localStorage.getItem('select-field-timer-start')) {
+    selectElement.value = window.localStorage.getItem('select-field-timer-start');
+  }
+
+  function onSelectFieldChange() {
+    window.localStorage.setItem('select-field-timer-start', selectElement.value);
+  }
+
+  function fancyTimeFormat(time)
+  {
+    // Hours, minutes and seconds
+    const mins = Math.floor((time % 3600) / 60);
+    const secs = time % 60;
+
+    // Output like "1:01" or "4:03:59" or "123:03:59"
+    let ret = "";
+    ret += "" + mins + ":" + (secs < 10 ? "0" : "");
+    ret += "" + secs;
+    return ret;
+  }
+
+  let shouldIncludePlane = false;
+
+  ipcRenderer.on('started', (event, message) => {
+    selectElement.disabled = true;
+    element.innerText = fancyTimeFormat(message);
+
+    if (window.localStorage.getItem('select-field-timer-start')) {
+      shouldIncludePlane = window.localStorage.getItem('select-field-timer-start') === 'plane';
+    }
+
+  });
+
+  ipcRenderer.on('stopped', (event, message) => {
+    element.innerText = fancyTimeFormat(message);
+    selectElement.disabled = false;
+    timerStoppedAudio.currentTime = 0;
+    timerStoppedAudio.play();
+  });
+
+  ipcRenderer.on('ping', (event, message) => {
+    element.innerText = fancyTimeFormat(message);
+
+    if (shouldIncludePlane) {
+      message = message - 120;
+    }
+
+    switch (message) {
+      case -120:
+        timerStartedAudio.currentTime = 0;
+        timerStartedAudio.play();
+        break;
+
+      case 0:
+        firstZoneStartedAudio.currentTime = 0;
+        firstZoneStartedAudio.play();
+        break;
+
+      case 270:
+        thirtySecondsLeftAudio.currentTime = 0;
+        thirtySecondsLeftAudio.play();
+        break;
+
+      case 290:
+        tenSecondsLeftAudio.currentTime = 0;
+        tenSecondsLeftAudio.play();
+        break;
+
+      case 300:
+        zoneShrinkingAudio.currentTime = 0;
+        zoneShrinkingAudio.play();
+        break;
+
+      case 450:
+        fiftyPercentAudio.currentTime = 0;
+        fiftyPercentAudio.play();
+        break;
+
+      // SECOND ZONE
+      case 600:
+        secondZoneStartedAudio.currentTime = 0;
+        secondZoneStartedAudio.play();
+        break;
+
+      case 770:
+        thirtySecondsLeftAudio.currentTime = 0;
+        thirtySecondsLeftAudio.play();
+        break;
+
+      case 790:
+        tenSecondsLeftAudio.currentTime = 0;
+        tenSecondsLeftAudio.play();
+        break;
+
+      case 800:
+        zoneShrinkingAudio.currentTime = 0;
+        zoneShrinkingAudio.play();
+        break;
+
+      // THIRD ZONE
+      case 940:
+        thirdZoneStartedAudio.currentTime = 0;
+        thirdZoneStartedAudio.play();
+        break;
+
+      case 1060:
+        thirtySecondsLeftAudio.currentTime = 0;
+        thirtySecondsLeftAudio.play();
+        break;
+
+      case 1080:
+        tenSecondsLeftAudio.currentTime = 0;
+        tenSecondsLeftAudio.play();
+        break;
+
+      case 1090:
+        zoneShrinkingAudio.currentTime = 0;
+        zoneShrinkingAudio.play();
+        break;
+
+      // FOURTH ZONE
+      case 1180:
+        fourthZoneStartedAudio.currentTime = 0;
+        fourthZoneStartedAudio.play();
+        break;
+
+      case 1270:
+        thirtySecondsLeftAudio.currentTime = 0;
+        thirtySecondsLeftAudio.play();
+        break;
+
+      case 1290:
+        tenSecondsLeftAudio.currentTime = 0;
+        tenSecondsLeftAudio.play();
+        break;
+
+      case 1300:
+        zoneShrinkingAudio.currentTime = 0;
+        zoneShrinkingAudio.play();
+        break;
+
+      // FIFTH ZONE
+      case 1360:
+        fifthZoneStartedAudio.currentTime = 0;
+        fifthZoneStartedAudio.play();
+        break;
+
+      case 1430:
+        thirtySecondsLeftAudio.currentTime = 0;
+        thirtySecondsLeftAudio.play();
+        break;
+
+      case 1450:
+        tenSecondsLeftAudio.currentTime = 0;
+        tenSecondsLeftAudio.play();
+        break;
+
+      case 1460:
+        zoneShrinkingAudio.currentTime = 0;
+        zoneShrinkingAudio.play();
+        break;
+
+      // SIXTH ZONE
+      case 1500:
+        sixthZoneStartedAudio.currentTime = 0;
+        sixthZoneStartedAudio.play();
+        break;
+
+      case 1560:
+        thirtySecondsLeftAudio.currentTime = 0;
+        thirtySecondsLeftAudio.play();
+        break;
+
+      case 1580:
+        tenSecondsLeftAudio.currentTime = 0;
+        tenSecondsLeftAudio.play();
+        break;
+
+      case 1590:
+        zoneShrinkingAudio.currentTime = 0;
+        zoneShrinkingAudio.play();
+        break;
+
+      // SEVENTH ZONE
+      case 1620:
+        seventhZoneStartedAudio.currentTime = 0;
+        seventhZoneStartedAudio.play();
+        break;
+
+      case 1680:
+        thirtySecondsLeftAudio.currentTime = 0;
+        thirtySecondsLeftAudio.play();
+        break;
+
+      case 1700:
+        tenSecondsLeftAudio.currentTime = 0;
+        tenSecondsLeftAudio.play();
+        break;
+
+      case 1710:
+        zoneShrinkingAudio.currentTime = 0;
+        zoneShrinkingAudio.play();
+        break;
+
+      // EIGHT ZONE
+      case 1740:
+        eighthZoneStartedAudio.currentTime = 0;
+        eighthZoneStartedAudio.play();
+        break;
+
+      case 1800:
+        thirtySecondsLeftAudio.currentTime = 0;
+        thirtySecondsLeftAudio.play();
+        break;
+
+      case 1820:
+        tenSecondsLeftAudio.currentTime = 0;
+        tenSecondsLeftAudio.play();
+        break;
+
+      case 1830:
+        zoneShrinkingAudio.currentTime = 0;
+        zoneShrinkingAudio.play();
+        break;
+
+      // NINTH ZONE
+      case 1860:
+        ninthZoneStartedAudio.currentTime = 0;
+        ninthZoneStartedAudio.play();
+        break;
+
+      case 1890:
+        thirtySecondsLeftAudio.currentTime = 0;
+        thirtySecondsLeftAudio.play();
+        break;
+
+      case 1910:
+        tenSecondsLeftAudio.currentTime = 0;
+        tenSecondsLeftAudio.play();
+        break;
+
+      case 1920:
+        zoneShrinkingAudio.currentTime = 0;
+        zoneShrinkingAudio.play();
+        break;
+
+      default:
+        return;
+    }
+
+
+  })
+</script>
+</body>
+</html>

@@ -4,7 +4,9 @@
   "description": "PUBG Zone Announcer",
   "main": "index.js",
   "scripts": {
-    "start": "electron ."
+    "dev": "cross-env NODE_ENV=development electron .",
+    "prebuild": "rimraf ./test-win32-x64",
+    "build": "cross-env NODE_ENV=production electron-packager ./ test"
   },
   "repository": {
     "type": "git",
@@ -23,5 +25,10 @@
   "homepage": "https://github.com/jeroenwienk/zone-announcer#readme",
   "dependencies": {
     "electron": "^1.7.5"
+  },
+  "devDependencies": {
+    "cross-env": "^5.0.5",
+    "electron-packager": "^8.7.2",
+    "rimraf": "^2.6.1"
   }
 }
