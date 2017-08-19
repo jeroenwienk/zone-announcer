@@ -1,6 +1,8 @@
-const { app, globalShortcut, BrowserWindow } = require('electron');
+const { app, globalShortcut, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const url = require('url');
+const constants = require('./src/constants');
+const { ACTIONS, IPC } = constants;
 
 let mainWindow = null;
 let mainUrl = null;
@@ -20,12 +22,9 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 function createMainWindow() {
-  console.log(process.platform);
-
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
-    frame: false,
     show: true
   });
 
@@ -35,10 +34,13 @@ function createMainWindow() {
     mainWindow.webContents.openDevTools();
   }
 
-
   mainWindow.on('closed', () => {
     mainWindow = null;
     app.quit();
+  });
+
+  mainWindow.once('ready-to-show', () => {
+    handleTest()
   })
 
 }
@@ -46,43 +48,42 @@ function createMainWindow() {
 function registerGlobalShortcut() {
   globalShortcut.register('F8', handleGlobalTogglePress);
   globalShortcut.register('F7', handleGlobalIncrementPress);
+  globalShortcut.register('F6', handleGlobalDecrementPress);
 }
 
-let interval = null;
-let time = 0;
-
 function handleGlobalTogglePress() {
-  if (interval == null) {
-    mainWindow.webContents.send('started', time);
-    mainWindow.webContents.send('ping', time);
-    interval = setInterval(logTimer, 1000)
-  } else {
-    clearInterval(interval);
-    interval = null;
-    time = 0;
-    mainWindow.webContents.send('stopped', time);
-  }
+  mainWindow.webContents.send(IPC.SHORTCUT_TIMER_TOGGLE);
 }
 
 function handleGlobalIncrementPress() {
-  if (interval != null) {
-    time += 1;
-  }
+  mainWindow.webContents.send(IPC.SHORTCUT_TIMER_INCREMENT);
 }
 
-function logTimer() {
-  time += 1;
-  mainWindow.webContents.send('ping', time);
-
-  if (time > 2200) {
-    clearInterval(interval);
-    interval = null;
-    time = 0;
-    mainWindow.webContents.send('stopped', time);
-  }
+function handleGlobalDecrementPress() {
+  mainWindow.webContents.send(IPC.SHORTCUT_TIMER_DECREMENT);
 }
 
 app.on('ready', () => {
   createMainWindow();
   registerGlobalShortcut();
 });
+
+ipcMain.on(IPC.REQUEST_INIT, () => {
+  mainWindow.webContents.send(IPC.RESPONSE_INIT, {
+    type: ACTIONS.INIT,
+    payload: {
+      startFrom: 'plane',
+      toggleKey: 'F7',
+      toggleCtrl: true,
+      toggleAlt: false,
+      incrementKey: 'F8',
+      incrementCtrl: true,
+      incrementAlt: false,
+      decrementKey: 'F11',
+      decrementCtrl: false,
+      decrementAlt: true,
+    }
+  });
+});
+
+

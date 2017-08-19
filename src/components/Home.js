@@ -13,9 +13,9 @@ const styles = theme => ({
 });
 
 class Home extends Component {
-  render () {
+  render() {
     return (
-      <Paper className={this.props.classes.root} >
+      <Paper className={this.props.classes.root}>
         <Typography type="title" gutterBottom>
           Home
         </Typography>
