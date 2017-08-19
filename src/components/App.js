@@ -1,45 +1,46 @@
 import React, { Component } from 'react';
-import Button from 'material-ui/Button';
 import { withStyles } from 'material-ui/styles';
-import AppBar from 'material-ui/AppBar';
-import Toolbar from 'material-ui/Toolbar';
-import Paper from 'material-ui/Paper';
-import Typography from 'material-ui/Typography';
 
-const styles = theme => ({
-  root: {
-    width: '100%',
-  },
-  paperRoot: theme.mixins.gutters({
-    paddingTop: 16,
-    paddingBottom: 16,
-    margin: theme.spacing.unit * 3
-  }),
-});
+import Navigation from './Navigation';
+
+const styles = theme => {
+  return ({
+    appRoot: {
+      width: '100%',
+      display: 'flex'
+    },
+    navRoot: {
+      backgroundColor: theme.palette.primary['500'],
+      height: '100vh',
+      flexBasis: 48,
+      flexGrow: 0,
+      flexShrink: 0,
+      display: 'flex',
+      flexDirection: 'column',
+      boxShadow: '0px 2.5px 3px #000'
+    },
+    contentRoot: {
+      height: '100vh',
+      flexBasis: 640,
+      flexGrow: 0,
+      flexShrink: 1,
+      margin: '0 auto',
+    }
+  })
+};
 
 class App extends Component {
   render() {
     return (
-    <div className={this.props.classes.root}>
-      <AppBar position="static" color="primary">
-        <Toolbar>
-          <Typography type="title" color="inherit">
-            Announcer
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <Paper className={this.props.classes.paperRoot} elevation={4}>
-        <Typography type="headline" component="h3">
-          This is a sheet of paper.
-        </Typography>
-        <Typography type="body1" component="p">
-          Paper can be used to build surface or other elements for your application.
-        </Typography>
-        <Button color="primary">
-          CLICK
-        </Button>
-      </Paper>
-    </div>
+      <div className={this.props.classes.appRoot}>
+
+        <Navigation className={this.props.classes.navRoot}/>
+
+        <div className={this.props.classes.contentRoot}>
+          {this.props.children}
+        </div>
+
+      </div>
     )
   }
 }

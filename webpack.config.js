@@ -5,7 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const config = {
   target: 'electron',
-  entry: './src/index.js',
+  entry: ['./src/index.js'],
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist')
@@ -13,14 +13,12 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(js)$/,
         exclude: /(node_modules)/,
         use: [
           {
             loader: 'babel-loader',
-            options: {
-              presets: ['react', 'env']
-            }
+            options: {}
           }
         ],
       },
@@ -61,7 +59,7 @@ const config = {
 if (process.env.NODE_ENV === 'production') {
   config.plugins = config.plugins.concat([
     new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.optimize.UglifyJsPlugin(),
+    //new webpack.optimize.UglifyJsPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production')
     }),
@@ -71,6 +69,7 @@ if (process.env.NODE_ENV === 'production') {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('development')
     }),
+    new webpack.HotModuleReplacementPlugin(),
   ])
 }
 

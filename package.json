@@ -8,7 +8,7 @@
     "dev": "cross-env NODE_ENV=development electron .",
     "dev:server": "cross-env NODE_ENV=development node ./webpack.server.js",
     "prebuild": "rimraf ./packages/*",
-    "build": "cross-env NODE_ENV=production webpack --config webpack.config.js && cross-env NODE_ENV=production electron-packager ./ --out ./packages"
+    "build": "cross-env NODE_ENV=production webpack --config webpack.config.js && cross-env NODE_ENV=production electron-packager ./ --no-prune --out ./packages"
   },
   "repository": {
     "type": "git",
@@ -28,14 +28,18 @@
   "dependencies": {
     "electron": "^1.7.5",
     "material-ui": "next",
+    "material-ui-icons": "^1.0.0-beta.5",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
+    "react-router-dom": "^4.1.2",
     "styled-components": "^2.1.2",
     "typeface-roboto": "0.0.35"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.1",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.24.1",
     "cross-env": "^5.0.5",
@@ -43,10 +47,13 @@
     "electron-packager": "^8.7.2",
     "file-loader": "^0.11.2",
     "html-webpack-plugin": "^2.30.1",
+    "install": "^0.10.1",
+    "npm": "^5.3.0",
     "rimraf": "^2.6.1",
     "style-loader": "^0.18.2",
     "webpack": "^3.5.5",
     "webpack-bundle-analyzer": "^2.9.0",
+    "webpack-dashboard": "^0.4.0",
     "webpack-dev-server": "^2.7.1"
   }
 }
