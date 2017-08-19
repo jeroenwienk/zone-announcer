@@ -18,22 +18,22 @@
   element.innerText = fancyTimeFormat(0);
   const selectElement = document.getElementById('select-field-timer-start');
 
-  const timerStarted = path.join(__dirname, 'wav/timer-started.wav');
-  const timerStopped = path.join(__dirname, 'wav/timer-stopped.wav');
-  const zoneShrinking = path.join(__dirname, 'wav/zone-shrinking.wav');
-  const tenSecondsLeft = path.join(__dirname, 'wav/10-seconds-left.wav');
-  const thirtySecondsLeft = path.join(__dirname, 'wav/30-seconds-left.wav');
-  const fiftyPercent = path.join(__dirname, 'wav/50-percent.wav');
+  const timerStarted = path.join(__dirname, '../wav/timer-started.wav');
+  const timerStopped = path.join(__dirname, '../wav/timer-stopped.wav');
+  const zoneShrinking = path.join(__dirname, '../wav/zone-shrinking.wav');
+  const tenSecondsLeft = path.join(__dirname, '../wav/10-seconds-left.wav');
+  const thirtySecondsLeft = path.join(__dirname, '../wav/30-seconds-left.wav');
+  const fiftyPercent = path.join(__dirname, '../wav/50-percent.wav');
 
-  const firstZoneStarted = path.join(__dirname, 'wav/first-zone-started.wav');
-  const secondZoneStarted = path.join(__dirname, 'wav/second-zone-started.wav');
-  const thirdZoneStarted = path.join(__dirname, 'wav/third-zone-started.wav');
-  const fourthZoneStarted = path.join(__dirname, 'wav/fourth-zone-started.wav');
-  const fifthZoneStarted = path.join(__dirname, 'wav/fifth-zone-started.wav');
-  const sixthZoneStarted = path.join(__dirname, 'wav/sixth-zone-started.wav');
-  const seventhZoneStarted = path.join(__dirname, 'wav/seventh-zone-started.wav');
-  const eighthZoneStarted = path.join(__dirname, 'wav/eighth-zone-started.wav');
-  const ninthZoneStarted = path.join(__dirname, 'wav/ninth-zone-started.wav');
+  const firstZoneStarted = path.join(__dirname, '../wav/first-zone-started.wav');
+  const secondZoneStarted = path.join(__dirname, '../wav/second-zone-started.wav');
+  const thirdZoneStarted = path.join(__dirname, '../wav/third-zone-started.wav');
+  const fourthZoneStarted = path.join(__dirname, '../wav/fourth-zone-started.wav');
+  const fifthZoneStarted = path.join(__dirname, '../wav/fifth-zone-started.wav');
+  const sixthZoneStarted = path.join(__dirname, '../wav/sixth-zone-started.wav');
+  const seventhZoneStarted = path.join(__dirname, '../wav/seventh-zone-started.wav');
+  const eighthZoneStarted = path.join(__dirname, '../wav/eighth-zone-started.wav');
+  const ninthZoneStarted = path.join(__dirname, '../wav/ninth-zone-started.wav');
 
   const timerStartedAudio = new Audio(timerStarted);
   const timerStoppedAudio = new Audio(timerStopped);
@@ -199,104 +199,104 @@
         fifthZoneStartedAudio.play();
         break;
 
-      case 1430:
+      case 1450:
         thirtySecondsLeftAudio.currentTime = 0;
         thirtySecondsLeftAudio.play();
         break;
 
-      case 1450:
+      case 1470:
         tenSecondsLeftAudio.currentTime = 0;
         tenSecondsLeftAudio.play();
         break;
 
-      case 1460:
+      case 1480:
         zoneShrinkingAudio.currentTime = 0;
         zoneShrinkingAudio.play();
         break;
 
       // SIXTH ZONE
-      case 1500:
+      case 1520:
         sixthZoneStartedAudio.currentTime = 0;
         sixthZoneStartedAudio.play();
         break;
 
-      case 1560:
+      case 1580:
         thirtySecondsLeftAudio.currentTime = 0;
         thirtySecondsLeftAudio.play();
         break;
 
-      case 1580:
+      case 1600:
         tenSecondsLeftAudio.currentTime = 0;
         tenSecondsLeftAudio.play();
         break;
 
-      case 1590:
+      case 1610:
         zoneShrinkingAudio.currentTime = 0;
         zoneShrinkingAudio.play();
         break;
 
       // SEVENTH ZONE
-      case 1620:
+      case 1640:
         seventhZoneStartedAudio.currentTime = 0;
         seventhZoneStartedAudio.play();
         break;
 
-      case 1680:
+      case 1700:
         thirtySecondsLeftAudio.currentTime = 0;
         thirtySecondsLeftAudio.play();
         break;
 
-      case 1700:
+      case 1720:
         tenSecondsLeftAudio.currentTime = 0;
         tenSecondsLeftAudio.play();
         break;
 
-      case 1710:
+      case 1730:
         zoneShrinkingAudio.currentTime = 0;
         zoneShrinkingAudio.play();
         break;
 
       // EIGHT ZONE
-      case 1740:
+      case 1760:
         eighthZoneStartedAudio.currentTime = 0;
         eighthZoneStartedAudio.play();
         break;
 
-      case 1800:
+      case 1820:
         thirtySecondsLeftAudio.currentTime = 0;
         thirtySecondsLeftAudio.play();
         break;
 
-      case 1820:
+      case 1840:
         tenSecondsLeftAudio.currentTime = 0;
         tenSecondsLeftAudio.play();
         break;
 
-      case 1830:
+      case 1850:
         zoneShrinkingAudio.currentTime = 0;
         zoneShrinkingAudio.play();
         break;
 
       // NINTH ZONE
-      case 1860:
-        ninthZoneStartedAudio.currentTime = 0;
-        ninthZoneStartedAudio.play();
-        break;
-
-      case 1890:
-        thirtySecondsLeftAudio.currentTime = 0;
-        thirtySecondsLeftAudio.play();
-        break;
-
-      case 1910:
-        tenSecondsLeftAudio.currentTime = 0;
-        tenSecondsLeftAudio.play();
-        break;
-
-      case 1920:
-        zoneShrinkingAudio.currentTime = 0;
-        zoneShrinkingAudio.play();
-        break;
+//      case 1880:
+//        ninthZoneStartedAudio.currentTime = 0;
+//        ninthZoneStartedAudio.play();
+//        break;
+//
+//      case 1890:
+//        thirtySecondsLeftAudio.currentTime = 0;
+//        thirtySecondsLeftAudio.play();
+//        break;
+//
+//      case 1910:
+//        tenSecondsLeftAudio.currentTime = 0;
+//        tenSecondsLeftAudio.play();
+//        break;
+//
+//      case 1920:
+//        zoneShrinkingAudio.currentTime = 0;
+//        zoneShrinkingAudio.play();
+//        break;
 
       default:
         return;
@@ -305,5 +305,6 @@
 
   })
 </script>
+<script src="http://localhost:8080/bundle.js" ></script>
 </body>
 </html>

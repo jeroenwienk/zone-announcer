@@ -3,19 +3,28 @@ const path = require('path');
 const url = require('url');
 
 let mainWindow = null;
+let mainUrl = null;
 
-const mainUrl = url.format({
-  pathname: path.join(__dirname, 'index.html'),
-  protocol: 'file:',
-  slashes: true
-});
+if (process.env.NODE_ENV === 'development') {
+  mainUrl = url.format({
+    pathname: 'localhost:8080/index.html',
+    protocol: 'http:',
+    slashes: true
+  });
+} else {
+  mainUrl = url.format({
+    pathname: path.join(__dirname, 'dist/index.html'),
+    protocol: 'file:',
+    slashes: true
+  });
+}
 
 function createMainWindow() {
   console.log(process.platform);
 
   mainWindow = new BrowserWindow({
-    width: 1280,
-    height: 960,
+    width: 800,
+    height: 600,
     show: true
   });
 
