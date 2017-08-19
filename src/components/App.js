@@ -3,6 +3,7 @@ import { withStyles } from 'material-ui/styles';
 
 import Navigation from './Navigation';
 
+const navWidth = 48;
 const styles = theme => {
   return ({
     appRoot: {
@@ -11,10 +12,11 @@ const styles = theme => {
     },
     navRoot: {
       backgroundColor: theme.palette.primary['500'],
-      height: '100vh',
-      flexBasis: 48,
-      flexGrow: 0,
-      flexShrink: 0,
+      width: navWidth,
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      bottom: 0,
       display: 'flex',
       flexDirection: 'column',
       boxShadow: '0px 2.5px 3px #000'
@@ -24,6 +26,7 @@ const styles = theme => {
       flexBasis: 640,
       flexGrow: 0,
       flexShrink: 1,
+      paddingLeft: navWidth,
       margin: '0 auto',
     }
   })
