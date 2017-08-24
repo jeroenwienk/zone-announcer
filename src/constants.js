@@ -16,6 +16,7 @@ const IPC = {
 const ROUTES = {
   HOME: '/',
   TIMER: '/timer',
+  TIMER_AUTOSTART: '?autoStart',
   SETTINGS: '/settings'
 };
 

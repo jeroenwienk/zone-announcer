@@ -14,6 +14,7 @@ import theme from './theme';
 import { ROUTES } from './constants'
 import rootReducer from './reducers/index';
 
+import RouterHook from './components/RouterHook';
 import App from './components/App';
 import Home from './components/Home';
 import Timer from './components/Timer';
@@ -41,6 +42,7 @@ render(
     <MuiThemeProvider theme={theme}>
       <HashRouter>
         <App>
+          <RouterHook />
           <Route exact path={ROUTES.HOME} component={Home}/>
           <Route path={ROUTES.TIMER} component={Timer}/>
           <Route path={ROUTES.SETTINGS} component={Settings}/>

@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { withStyles } from 'material-ui/styles';
 import { ipcRenderer } from 'electron';
 
-import { IPC } from '../constants';
+import { IPC, ROUTES } from '../constants';
 
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
 
 const styles = theme => ({
-  root: theme.mixins.gutters({
+  cardRoot: theme.mixins.gutters({
     paddingTop: 16,
     paddingBottom: 16,
     margin: theme.spacing.unit * 3,
@@ -25,6 +25,12 @@ class Timer extends Component {
     ipcRenderer.on(IPC.SHORTCUT_TIMER_TOGGLE, this.handleTimerToggle);
     ipcRenderer.on(IPC.SHORTCUT_TIMER_INCREMENT, this.handleTimerIncrement);
     ipcRenderer.on(IPC.SHORTCUT_TIMER_DECREMENT, this.handleTimerDecrement);
+  }
+
+  componentDidMount() {
+    if (this.props.location.search === ROUTES.TIMER_AUTOSTART) {
+      this.startTimer();
+    }
   }
 
   componentWillUnmount() {
@@ -88,18 +94,24 @@ class Timer extends Component {
   };
 
   render() {
+    console.log(this.props);
+
     return (
-      <Paper className={this.props.classes.root}>
+      <div>
 
-        <Typography type="title">
-          Timer
-        </Typography>
+        <Paper className={this.props.classes.cardRoot}>
 
-        <Typography type="body1">
-          {this.formatTime(this.state.time)}
-        </Typography>
+          <Typography type="title">
+            Timer
+          </Typography>
 
-      </Paper>
+          <Typography type="body1">
+            {this.formatTime(this.state.time)}
+          </Typography>
+
+        </Paper>
+
+      </div>
     )
   }
 }
