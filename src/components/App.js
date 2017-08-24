@@ -3,8 +3,9 @@ import { withStyles } from 'material-ui/styles';
 
 import Navigation from './Navigation';
 
-const navWidth = 48;
 const styles = theme => {
+  const navWidth = 48;
+
   return ({
     appRoot: {
       width: '100%',

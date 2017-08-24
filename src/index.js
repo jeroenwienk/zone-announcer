@@ -19,13 +19,18 @@ import Home from './components/Home';
 import Timer from './components/Timer';
 import Settings from './containers/Settings';
 
-const logger = createLogger({
-  collapsed: true
-});
+const middlewares = [thunk];
+
+if (process.env.NODE_ENV === 'development') {
+  const logger = createLogger({
+    collapsed: true
+  });
+  middlewares.push(logger);
+}
 
 const store = createStore(
   rootReducer,
-  applyMiddleware(thunk, logger)
+  applyMiddleware(...middlewares)
 );
 
 registerIpcRendererEvents(store);

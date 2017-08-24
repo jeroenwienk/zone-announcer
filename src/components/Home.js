@@ -16,10 +16,10 @@ class Home extends Component {
   render() {
     return (
       <Paper className={this.props.classes.root}>
-        <Typography type="title" gutterBottom>
+        <Typography type="title" >
           Home
         </Typography>
-        <Typography type="body1" gutterBottom>
+        <Typography type="body1" >
           Welcome to Zone Announcer
         </Typography>
       </Paper>

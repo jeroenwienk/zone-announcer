@@ -49,7 +49,6 @@ const config = {
   plugins: [
     new HtmlWebpackPlugin({
       title: pkg.productName,
-      reactRoot: 'root',
       inject: true,
       template: path.resolve(__dirname, 'src/index.ejs')
     }),

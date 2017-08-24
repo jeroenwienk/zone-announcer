@@ -2,13 +2,17 @@ import React, { PureComponent } from 'react';
 import { withStyles } from 'material-ui/styles';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import isEqual from 'lodash/isEqual';
 
-import { ACTIONS } from '../constants'
+import { saveSettings } from '../actions/settings/save';
+import { DEFAULT_SETTINGS } from '../constants';
 
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
 import Radio, { RadioGroup } from 'material-ui/Radio';
-import { FormGroup, FormLabel, FormControl, FormControlLabel } from 'material-ui/Form';
+import FormGroup from 'material-ui/Form/FormGroup';
+import FormLabel from 'material-ui/Form/FormLabel';
+import FormControlLabel from 'material-ui/Form/FormControlLabel';
 import Switch from 'material-ui/Switch';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
@@ -36,18 +40,7 @@ const styles = theme => ({
 
 
 class Settings extends PureComponent {
-  state = {
-    startFrom: 'plane',
-    toggleKey: '',
-    toggleCtrl: false,
-    toggleAlt: false,
-    incrementKey: '',
-    incrementCtrl: false,
-    incrementAlt: false,
-    decrementKey: '',
-    decrementCtrl: false,
-    decrementAlt: false,
-  };
+  state = DEFAULT_SETTINGS;
 
   componentDidMount() {
     this.setState(this.props.settings);
@@ -59,8 +52,8 @@ class Settings extends PureComponent {
     }
   }
 
-  handleSaveClick = (event) => {
-    this.props.save(this.state);
+  handleSaveClick = () => {
+    this.props.saveSettings(this.state);
   };
 
   handleTimerStartChange = (event, value) => {
@@ -124,137 +117,136 @@ class Settings extends PureComponent {
     })
   };
 
+  isNotChanged = () => {
+    return isEqual(this.state, this.props.settings);
+  };
+
   render() {
     return (
       <div>
 
         <Paper className={this.props.classes.cardRoot}>
-          <Typography type="title" gutterBottom>
+          <Typography type="title">
             Settings
           </Typography>
         </Paper>
 
         <Paper className={this.props.classes.cardRoot}>
 
-          <Typography type="subheading" gutterBottom>
+          <Typography type="subheading">
             Timer
           </Typography>
 
-          <FormControl>
-            <FormLabel component="label">Start from</FormLabel>
-            <RadioGroup
-              name="timer-start"
-              className={this.props.classes.radioGroupRoot}
-              selectedValue={this.state.startFrom}
-              onChange={this.handleTimerStartChange}
-            >
-              <FormControlLabel value="plane" control={<Radio />} label="Plane"/>
-              <FormControlLabel value="first-circle" control={<Radio />} label="First Circle"/>
-            </RadioGroup>
-          </FormControl>
+          <FormLabel>Start from</FormLabel>
+          <RadioGroup
+            name="timer-start"
+            className={this.props.classes.radioGroupRoot}
+            value={this.state.startFrom}
+            onChange={this.handleTimerStartChange}
+          >
+            <FormControlLabel value="plane" control={<Radio />} label="Plane"/>
+            <FormControlLabel value="first-circle" control={<Radio />} label="First Circle"/>
+          </RadioGroup>
+
         </Paper>
 
         <Paper className={this.props.classes.cardRoot}>
-          <Typography type="subheading" gutterBottom>
+
+          <Typography type="subheading">
             Shortcuts
           </Typography>
 
-          <FormControl>
-            <FormLabel>Start Timer</FormLabel>
-            <FormGroup row>
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={this.state.toggleCtrl}
-                    onChange={this.handleCtrlToggle}
-                  />
-                }
-                label="CTRL"
-              />
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={this.state.toggleAlt}
-                    onChange={this.handleAltToggle}
-                  />
-                }
-                label="ALT"
-              />
-              <TextField
-                id="name"
-                value={this.state.toggleKey}
-                onKeyUp={this.handleKeyTogglePress}
-                className={this.props.classes.textFieldRoot}
-                margin="dense"
-              />
-            </FormGroup>
-          </FormControl>
+          <FormLabel>Start Timer</FormLabel>
+          <FormGroup row>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={this.state.toggleCtrl}
+                  onChange={this.handleCtrlToggle}
+                />
+              }
+              label="CTRL"
+            />
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={this.state.toggleAlt}
+                  onChange={this.handleAltToggle}
+                />
+              }
+              label="ALT"
+            />
+            <TextField
+              id="name"
+              value={this.state.toggleKey}
+              onKeyUp={this.handleKeyTogglePress}
+              className={this.props.classes.textFieldRoot}
+              margin="dense"
+            />
+          </FormGroup>
 
-          <FormControl>
-            <FormLabel>Increment Timer</FormLabel>
-            <FormGroup row>
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={this.state.incrementCtrl}
-                    onChange={this.handleCtrlIncrement}
-                  />
-                }
-                label="CTRL"
-              />
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={this.state.incrementAlt}
-                    onChange={this.handleAltIncrement}
-                  />
-                }
-                label="ALT"
-              />
-              <TextField
-                id="name"
-                value={this.state.incrementKey}
-                onKeyUp={this.handleKeyIncrementPress}
-                className={this.props.classes.textFieldRoot}
-                margin="dense"
-              />
-            </FormGroup>
-          </FormControl>
+          <FormLabel>Increment Timer</FormLabel>
+          <FormGroup row>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={this.state.incrementCtrl}
+                  onChange={this.handleCtrlIncrement}
+                />
+              }
+              label="CTRL"
+            />
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={this.state.incrementAlt}
+                  onChange={this.handleAltIncrement}
+                />
+              }
+              label="ALT"
+            />
+            <TextField
+              id="name"
+              value={this.state.incrementKey}
+              onKeyUp={this.handleKeyIncrementPress}
+              className={this.props.classes.textFieldRoot}
+              margin="dense"
+            />
+          </FormGroup>
 
-          <FormControl>
-            <FormLabel>Decrement Timer</FormLabel>
-            <FormGroup row>
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={this.state.decrementCtrl}
-                    onChange={this.handleCtrlDecrement}
-                  />
-                }
-                label="CTRL"
-              />
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={this.state.decrementAlt}
-                    onChange={this.handleAltDecrement}
-                  />
-                }
-                label="ALT"
-              />
-              <TextField
-                id="name"
-                value={this.state.decrementKey}
-                onKeyUp={this.handleKeyDecrementPress}
-                className={this.props.classes.textFieldRoot}
-                margin="dense"
-              />
-            </FormGroup>
-          </FormControl>
+          <FormLabel>Decrement Timer</FormLabel>
+          <FormGroup row>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={this.state.decrementCtrl}
+                  onChange={this.handleCtrlDecrement}
+                />
+              }
+              label="CTRL"
+            />
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={this.state.decrementAlt}
+                  onChange={this.handleAltDecrement}
+                />
+              }
+              label="ALT"
+            />
+            <TextField
+              id="name"
+              value={this.state.decrementKey}
+              onKeyUp={this.handleKeyDecrementPress}
+              className={this.props.classes.textFieldRoot}
+              margin="dense"
+            />
+          </FormGroup>
+
         </Paper>
 
         <div className={this.props.classes.buttonContainer}>
-          <Button onClick={this.handleSaveClick} color="primary">
+          <Button raised disabled={this.isNotChanged()} onClick={this.handleSaveClick} color="primary">
             Save
           </Button>
         </div>
@@ -264,23 +256,15 @@ class Settings extends PureComponent {
   }
 }
 
-const save = (settings) => (dispatch, getState) => {
-  dispatch({
-    type: ACTIONS.SETTINGS_SAVE,
-    payload: settings
-  });
-};
-
-
-function mapStateToProps(state) {
+function mapStateToProps({ settings }) {
   return {
-    settings: state.settings,
+    settings
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    save
+    saveSettings
   }, dispatch)
 }
 

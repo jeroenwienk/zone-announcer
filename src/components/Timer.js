@@ -91,11 +91,11 @@ class Timer extends Component {
     return (
       <Paper className={this.props.classes.root}>
 
-        <Typography type="title" gutterBottom>
+        <Typography type="title">
           Timer
         </Typography>
 
-        <Typography type="body1" gutterBottom>
+        <Typography type="body1">
           {this.formatTime(this.state.time)}
         </Typography>
 
