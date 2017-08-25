@@ -30,7 +30,7 @@ function createMainWindow() {
     width: 800,
     height: 600,
     show: true,
-    icon: path.join(__dirname, '../../assets/icons/32x32.png')
+    icon: path.join(__dirname, '../assets/icons/32x32.png')
   });
   mainWindow.loadURL(mainUrl);
 

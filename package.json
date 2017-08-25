@@ -1,6 +1,6 @@
 {
-  "name": "announcer",
-  "productName": "Announcer",
+  "name": "zone-announcer",
+  "productName": "ZoneAnnouncer",
   "version": "1.0.0",
   "description": "PUBG Zone Announcer",
   "main": "src/electron/index.js",
@@ -9,7 +9,7 @@
     "dev:server": "cross-env NODE_ENV=development node ./webpack.server.js",
     "prebuild": "rimraf ./packages/*",
     "build": "cross-env NODE_ENV=production webpack --config webpack.config.js && npm run package",
-    "package": "cross-env NODE_ENV=production electron-packager ./ --out ./packages",
+    "package": "cross-env NODE_ENV=production electron-packager ./ --out ./packages --icon ./src/assets/icons/32x32.ico",
     "con": "concurrently --kill-others \"npm run dev:server\" \"npm run dev\""
   },
   "repository": {
