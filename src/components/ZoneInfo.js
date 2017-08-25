@@ -1,6 +1,6 @@
 import React, { PureComponent, Component } from 'react';
 
-import { ZONE_DATA, ZONE, ANNOUNCE } from '../constants';
+import { ZONE_DATA, ZONE, ANNOUNCE, ZONE_TIMINGS } from '../constants';
 
 import Timer from '../containers/Timer';
 import Typography from 'material-ui/Typography';
@@ -32,6 +32,7 @@ class ZoneInfo extends PureComponent {
     }
 
     const status = this.props.currentInfo.announce === ANNOUNCE.SHRINK ? 'SHRINKING' : 'STABLE';
+    const timings = ZONE_TIMINGS[this.props.currentInfo.zone];
 
     return (
       <div>
@@ -45,6 +46,8 @@ class ZoneInfo extends PureComponent {
         <div>{`Diameter: ${data.diameter}m`}</div>
         <div>{`Dps: ${data.dps}%`}</div>
         <div>{`Survive: ${Timer.formatTime(data.survive)}`}</div>
+        <div>{`Active: ${Timer.formatTime(timings.zone)}`}</div>
+        <div>{`Shrink: ${Timer.formatTime(timings.shrink)}`}</div>
 
 
       </div>

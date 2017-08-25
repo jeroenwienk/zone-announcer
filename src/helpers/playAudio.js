@@ -1,22 +1,22 @@
 import { ZONE, ANNOUNCE } from '../constants';
 
-import timerStartedMale from '../wav/timer-started-male.wav';
-import timerStoppedMale from '../wav/timer-stopped-male.wav';
+import timerStartedMale from '../assets/wav/timer-started-male.wav';
+import timerStoppedMale from '../assets/wav/timer-stopped-male.wav';
 
-import zoneShrinkingMale from '../wav/zone-shrinking-male.wav';
-import tenSecondsLeftMale from '../wav/10-seconds-left-male.wav';
-import thirtySecondsLeftMale from '../wav/30-seconds-left-male.wav';
-import fiftyPercentMale from '../wav/50-percent-male.wav';
+import zoneShrinkingMale from '../assets/wav/zone-shrinking-male.wav';
+import tenSecondsLeftMale from '../assets/wav/10-seconds-left-male.wav';
+import thirtySecondsLeftMale from '../assets/wav/30-seconds-left-male.wav';
+import fiftyPercentMale from '../assets/wav/50-percent-male.wav';
 
-import firstZoneStartedMale from '../wav/first-zone-started-male.wav';
-import secondZoneStartedMale from '../wav/second-zone-started-male.wav';
-import thirdZoneStartedMale from '../wav/third-zone-started-male.wav';
-import fourthZoneStartedMale from '../wav/fourth-zone-started-male.wav';
-import fifthZoneStartedMale from '../wav/fifth-zone-started-male.wav';
-import sixthZoneStartedMale from '../wav/sixth-zone-started-male.wav';
-import seventhZoneStartedMale from '../wav/seventh-zone-started-male.wav';
-import eighthZoneStartedMale from '../wav/eighth-zone-started-male.wav';
-import ninthZoneStartedMale from '../wav/ninth-zone-started-male.wav';
+import firstZoneStartedMale from '../assets/wav/first-zone-started-male.wav';
+import secondZoneStartedMale from '../assets/wav/second-zone-started-male.wav';
+import thirdZoneStartedMale from '../assets/wav/third-zone-started-male.wav';
+import fourthZoneStartedMale from '../assets/wav/fourth-zone-started-male.wav';
+import fifthZoneStartedMale from '../assets/wav/fifth-zone-started-male.wav';
+import sixthZoneStartedMale from '../assets/wav/sixth-zone-started-male.wav';
+import seventhZoneStartedMale from '../assets/wav/seventh-zone-started-male.wav';
+import eighthZoneStartedMale from '../assets/wav/eighth-zone-started-male.wav';
+import ninthZoneStartedMale from '../assets/wav/ninth-zone-started-male.wav';
 
 const AUDIO = {
   [ZONE.START]: new Audio(timerStartedMale),

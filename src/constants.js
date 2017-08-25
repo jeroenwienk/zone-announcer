@@ -52,7 +52,7 @@ const ZONE_TIMINGS = {
     shrink: 60
   },
   FIFTH: {
-    zone: 100,
+    zone: 120,
     shrink: 40
   },
   SIXTH: {
