@@ -17,7 +17,7 @@ import rootReducer from './reducers/index';
 import RouterHook from './components/RouterHook';
 import App from './components/App';
 import Home from './components/Home';
-import Timer from './components/Timer';
+import Timer from './containers/Timer';
 import Settings from './containers/Settings';
 
 const middlewares = [thunk];

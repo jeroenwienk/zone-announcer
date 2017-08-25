@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import { withStyles } from 'material-ui/styles';
 import { ipcRenderer } from 'electron';
+import { connect } from 'react-redux';
 
-import { IPC, ROUTES } from '../constants';
+import { IPC, ROUTES, ZONE, ANNOUNCE } from '../constants';
+import { checkTime } from '../helpers/checkTime';
+import { playAudio } from '../helpers/playAudio';
 
+import ZoneInfo from '../components/ZoneInfo';
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
 
@@ -17,7 +21,8 @@ const styles = theme => ({
 
 class Timer extends Component {
   state = {
-    time: 0
+    time: 0,
+    currentInfo: null
   };
 
   constructor() {
@@ -69,6 +74,14 @@ class Timer extends Component {
 
   startTimer = () => {
     if (this.interval == null) {
+      const currentInfo = checkTime(this.state.time, this.props.settings.startFrom);
+
+      if (currentInfo != null) {
+        this.setState({
+          currentInfo
+        });
+      }
+
       this.interval = setInterval(this.updateTimer, 1000)
     }
   };
@@ -77,25 +90,28 @@ class Timer extends Component {
     clearInterval(this.interval);
     this.interval = null;
     this.setState({
-      time: 0
-    })
+      time: 0,
+      currentInfo: null
+    });
+    playAudio({ zone: ZONE.END, announce: ANNOUNCE.ZONE })
   };
 
   updateTimer = () => {
+    const currentInfo = checkTime(this.state.time + 1, this.props.settings.startFrom);
+
     this.setState({
+      currentInfo: currentInfo != null ? currentInfo : this.state.currentInfo,
       time: this.state.time + 1
-    })
+    });
   };
 
-  formatTime = (time) => {
+  static formatTime = (time) => {
     const minutes = Math.floor((time % 3600) / 60);
     const seconds = time % 60;
     return `${minutes < 10 ? "0" : ""}${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   };
 
   render() {
-    console.log(this.props);
-
     return (
       <div>
 
@@ -106,14 +122,27 @@ class Timer extends Component {
           </Typography>
 
           <Typography type="body1">
-            {this.formatTime(this.state.time)}
+            {Timer.formatTime(this.state.time)}
           </Typography>
+
+        </Paper>
+
+        <Paper className={this.props.classes.cardRoot}>
+
+          <ZoneInfo currentInfo={this.state.currentInfo}/>
 
         </Paper>
 
       </div>
     )
   }
+
 }
 
-export default withStyles(styles)(Timer);
+function mapStateToProps({ settings }) {
+  return {
+    settings
+  }
+}
+
+export default connect(mapStateToProps)(withStyles(styles)(Timer));

@@ -29,7 +29,8 @@ function createMainWindow() {
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
-    show: true
+    show: true,
+    icon: path.join(__dirname, '../../assets/icons/32x32.png')
   });
   mainWindow.loadURL(mainUrl);
 

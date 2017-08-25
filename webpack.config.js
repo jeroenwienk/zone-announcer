@@ -36,7 +36,7 @@ const config = {
         ]
       },
       {
-        test: /\.(woff|woff2)$/,
+        test: /\.(woff|woff2|wav)$/,
         use: [
           {
             loader: 'file-loader',
